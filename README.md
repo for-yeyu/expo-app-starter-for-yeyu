@@ -1,50 +1,50 @@
-# Welcome to your Expo app 👋
+# Expo App Starter
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An Expo Router + React Query starter focused on clean layering for personal app projects.
 
-## Get started
+## Runtime Requirements
 
-1. Install dependencies
+- Node.js `>= 20`
+- pnpm `>= 9`
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Common Commands
 
 ```bash
-npm run reset-project
+pnpm start
+pnpm ios
+pnpm android
+pnpm web
+pnpm typecheck
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Architecture Overview
 
-## Learn more
+```text
+src/
+  app/        # Expo Router route entries
+  ui/         # Screen implementation and reusable UI
+  api/        # Async data and request functions by domain
+  hooks/      # Client-facing hooks, including React Query wrappers
+  configs/    # Expo public env and app metadata
+  lib/        # Infrastructure layer: http, errors, utilities
+  styles/     # Shared React Native design tokens
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Core Layering Rules
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+1. `src/app` stays route-focused.
+2. Screen UI lives in `src/ui/app`.
+3. Screens call hooks from `src/hooks`.
+4. Hooks call functions from `src/api`.
+5. Network requests go through `src/lib/http/fetch`.
+6. Runtime config is consumed through `src/configs/client-env`.
 
-## Join the community
+## Documentation Index
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- `src/app/README.md`: Expo Router entry-layer conventions
+- `src/ui/README.md`: UI and screen organization
+- `src/api/README.md`: API request layer rules
+- `src/hooks/README.md`: Hook layer and React Query conventions
+- `src/configs/README.md`: Expo public env boundaries
+- `src/lib/README.md`: Infrastructure modules and change policy
+- `src/styles/README.md`: Shared style token rules
