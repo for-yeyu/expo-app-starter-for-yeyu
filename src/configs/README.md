@@ -11,6 +11,8 @@
 ## Directory Layout
 
 ```text
+scripts/
+  validate-env.mjs        # Zod env validation before Expo starts
 src/configs/
   client-env.ts           # Client-safe env and app metadata
   index.ts                # Public config exports
@@ -24,12 +26,14 @@ Expo embeds `EXPO_PUBLIC_*` values into the client bundle. Treat every value in 
 - Use `EXPO_PUBLIC_API_BASE_URL` when the app has a backend API.
 - Do not put secrets, private tokens, or server-only config in Expo public env.
 - Consume config through `@/configs/client-env`.
+- Keep zod in `scripts/validate-env.mjs`; do not import it from `src/**`.
 
 ## How To Add Env Values
 
 1. Add the value to `.env.development` and `.env.production`.
-2. Add the typed field to `clientEnv`.
-3. Use `clientEnv` from app code.
+2. Add the value to `publicEnvSchema` in `scripts/validate-env.mjs`.
+3. Add the typed field to `clientEnv`.
+4. Use `clientEnv` from app code.
 
 ## Checklist
 
@@ -37,3 +41,4 @@ Expo embeds `EXPO_PUBLIC_*` values into the client bundle. Treat every value in 
 - Env names use Expo's `EXPO_PUBLIC_*` convention.
 - App code imports `clientEnv`, not `process.env`.
 - No secret values are added to this folder.
+- Zod is only used by the pre-start validation script.

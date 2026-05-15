@@ -3,10 +3,11 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
+    "validate:env": "node scripts/validate-env.mjs",
+    "start": "pnpm validate:env && expo start",
+    "android": "pnpm validate:env && expo start --android",
+    "ios": "pnpm validate:env && expo start --ios",
+    "web": "pnpm validate:env && expo start --web",
     "typecheck": "tsc --noEmit",
     "lint": "biome lint --max-diagnostics=100 .",
     "lint:fix": "biome lint --max-diagnostics=100 --write .",
@@ -53,7 +54,8 @@
     "czg": "^1.13.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.4",
-    "typescript": "~6.0.3"
+    "typescript": "~6.0.3",
+    "zod": "^4.4.3"
   },
   "private": true
 }

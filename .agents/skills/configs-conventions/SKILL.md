@@ -12,6 +12,8 @@ Applies to `src/configs/**` and modules that consume runtime config.
 ## Structure
 
 ```text
+scripts/
+  validate-env.mjs
 src/configs/
   client-env.ts
   index.ts
@@ -24,12 +26,15 @@ src/configs/
 3. App code imports `clientEnv` from `@/configs/client-env`.
 4. Do not put secrets or server-only values in Expo public env.
 5. Do not read `process.env` directly from screens, hooks, or API modules.
+6. Zod validation lives in `scripts/validate-env.mjs` only.
+7. Do not import zod from `src/**`.
 
 ## Workflow
 
 1. Add the value to `.env.development` and `.env.production`.
-2. Add the typed field to `clientEnv`.
-3. Consume the value through `@/configs/client-env`.
+2. Add validation to `publicEnvSchema` in `scripts/validate-env.mjs`.
+3. Add the typed field to `clientEnv`.
+4. Consume the value through `@/configs/client-env`.
 
 ## References
 
