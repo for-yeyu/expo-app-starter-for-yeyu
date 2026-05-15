@@ -1,7 +1,7 @@
-import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppInfo } from '@/hooks/api/app-info';
 import { useHealth } from '@/hooks/api/health';
-import { colors, radius, spacing } from '@/styles/tokens';
 
 export function HomePage() {
   const appInfoQuery = useAppInfo();
@@ -10,29 +10,33 @@ export function HomePage() {
   const canCheckApi = appInfo?.apiBaseUrl != null;
 
   return (
-    <SafeAreaView style={styles.root}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.header}>
-          <Text style={styles.eyebrow}>expo template</Text>
-          <Text style={styles.title}>{appInfo?.appName}</Text>
+    <SafeAreaView className="flex-1 bg-brand-50" edges={['top', 'left', 'right']}>
+      <ScrollView contentContainerClassName="flex-grow justify-center gap-6 px-5 py-6">
+        <View className="gap-3">
+          <Text className="text-sm font-bold uppercase tracking-normal text-brand-700">
+            expo template
+          </Text>
+          <Text className="text-4xl font-extrabold tracking-normal text-slate-900">
+            {appInfo?.appName}
+          </Text>
         </View>
 
         {appInfo == null ? (
-          <Text style={styles.mutedText}>loading app info</Text>
+          <Text className="text-base text-slate-500">loading app info</Text>
         ) : (
-          <View style={styles.panel}>
-            <View style={styles.row}>
-              <Text style={styles.label}>environment</Text>
-              <Text style={styles.value}>{appInfo.environment}</Text>
+          <View className="gap-4 rounded-lg border border-brand-200 bg-white p-4 shadow-sm shadow-brand-200">
+            <View className="gap-1">
+              <Text className="text-sm uppercase tracking-normal text-slate-500">environment</Text>
+              <Text className="text-lg font-semibold text-slate-900">{appInfo.environment}</Text>
             </View>
-            <View style={styles.row}>
-              <Text style={styles.label}>slug</Text>
-              <Text style={styles.value}>{appInfo.slug}</Text>
+            <View className="gap-1">
+              <Text className="text-sm uppercase tracking-normal text-slate-500">slug</Text>
+              <Text className="text-lg font-semibold text-slate-900">{appInfo.slug}</Text>
             </View>
             {appInfo.apiBaseUrl != null && (
-              <View style={styles.row}>
-                <Text style={styles.label}>api</Text>
-                <Text style={styles.value}>{appInfo.apiBaseUrl}</Text>
+              <View className="gap-1">
+                <Text className="text-sm uppercase tracking-normal text-slate-500">api</Text>
+                <Text className="text-lg font-semibold text-slate-900">{appInfo.apiBaseUrl}</Text>
               </View>
             )}
           </View>
@@ -42,22 +46,22 @@ export function HomePage() {
           onPress={() => {
             void appInfoQuery.refetch();
           }}
-          style={({ pressed }) => [styles.refreshButton, pressed && styles.refreshButtonPressed]}
+          className="self-start rounded-md bg-brand-400 px-6 py-4 active:opacity-80"
         >
-          <Text style={styles.refreshButtonText}>Refresh</Text>
+          <Text className="text-base font-bold text-brand-950">Refresh</Text>
         </Pressable>
 
-        <View style={styles.panel}>
-          <View style={styles.row}>
-            <Text style={styles.label}>request flow</Text>
-            <Text style={styles.value}>
+        <View className="gap-4 rounded-lg border border-brand-200 bg-white p-4 shadow-sm shadow-brand-200">
+          <View className="gap-1">
+            <Text className="text-sm uppercase tracking-normal text-slate-500">request flow</Text>
+            <Text className="text-lg font-semibold text-slate-900">
               {healthQuery.data == null ? 'health check is idle' : healthQuery.data.status}
             </Text>
             {healthQuery.data != null && (
-              <Text style={styles.mutedText}>{healthQuery.data.timestamp}</Text>
+              <Text className="text-base text-slate-500">{healthQuery.data.timestamp}</Text>
             )}
             {healthQuery.error != null && (
-              <Text style={styles.errorText}>{healthQuery.error.message}</Text>
+              <Text className="text-sm text-red-600">{healthQuery.error.message}</Text>
             )}
           </View>
 
@@ -66,109 +70,12 @@ export function HomePage() {
             onPress={() => {
               void healthQuery.refetch();
             }}
-            style={({ pressed }) => [
-              styles.secondaryButton,
-              pressed && styles.refreshButtonPressed,
-              !canCheckApi && styles.disabledButton,
-            ]}
+            className="self-start rounded-md border border-brand-500 px-6 py-4 active:opacity-80 disabled:border-slate-300 disabled:opacity-55"
           >
-            <Text style={styles.secondaryButtonText}>Check API</Text>
+            <Text className="text-base font-bold text-brand-700">Check API</Text>
           </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  content: {
-    flexGrow: 1,
-    gap: spacing.lg,
-    justifyContent: 'center',
-    padding: spacing.lg,
-  },
-  header: {
-    gap: spacing.sm,
-  },
-  eyebrow: {
-    color: colors.accent,
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: 0,
-    textTransform: 'uppercase',
-  },
-  title: {
-    color: colors.text,
-    fontSize: 34,
-    fontWeight: '800',
-    letterSpacing: 0,
-  },
-  mutedText: {
-    color: colors.mutedText,
-    fontSize: 16,
-  },
-  panel: {
-    gap: spacing.md,
-    borderColor: colors.border,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    backgroundColor: colors.surface,
-    padding: spacing.md,
-  },
-  row: {
-    gap: spacing.xs,
-  },
-  label: {
-    color: colors.mutedText,
-    fontSize: 13,
-    letterSpacing: 0,
-    textTransform: 'uppercase',
-  },
-  value: {
-    color: colors.text,
-    fontSize: 17,
-    fontWeight: '600',
-  },
-  refreshButton: {
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    borderRadius: radius.sm,
-    backgroundColor: colors.primary,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-  },
-  refreshButtonPressed: {
-    opacity: 0.82,
-  },
-  refreshButtonText: {
-    color: colors.primaryText,
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  secondaryButton: {
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    borderColor: colors.primary,
-    borderRadius: radius.sm,
-    borderWidth: 1,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
-  },
-  disabledButton: {
-    borderColor: colors.border,
-    opacity: 0.55,
-  },
-  secondaryButtonText: {
-    color: colors.primary,
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  errorText: {
-    color: colors.danger,
-    fontSize: 14,
-  },
-});

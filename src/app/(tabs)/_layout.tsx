@@ -1,18 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import type { ComponentProps } from 'react';
-import { colors } from '@/styles/tokens';
 
 export default function Layout() {
   return (
     <Tabs
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.mutedText,
+        tabBarActiveTintColor: '#a2cb8b',
+        tabBarInactiveTintColor: '#617084',
         tabBarStyle: {
-          borderTopColor: colors.border,
-          backgroundColor: colors.surface,
+          borderTopColor: '#d9edcd',
+          backgroundColor: '#ffffff',
         },
         tabBarIcon: ({ color, size }) => {
           const iconName: ComponentProps<typeof Ionicons>['name'] =

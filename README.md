@@ -27,7 +27,7 @@ src/
   hooks/      # Client-facing hooks, including React Query wrappers
   configs/    # Expo public env and app metadata
   lib/        # Infrastructure layer: http, errors, utilities
-  styles/     # Shared React Native design tokens
+  styles/     # NativeWind global CSS entry
 ```
 
 ## Core Layering Rules
@@ -47,4 +47,4 @@ src/
 - `src/hooks/README.md`: Hook layer and React Query conventions
 - `src/configs/README.md`: Expo public env boundaries
 - `src/lib/README.md`: Infrastructure modules and change policy
-- `src/styles/README.md`: Shared style token rules
+- `src/styles/README.md`: NativeWind CSS entry rules

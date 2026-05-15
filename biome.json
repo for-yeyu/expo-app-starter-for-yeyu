@@ -36,7 +36,13 @@
         "useExhaustiveDependencies": "warn"
       },
       "style": { "useImportType": "off", "useNodejsImportProtocol": "off" },
-      "suspicious": { "noConsole": "off" }
+      "suspicious": {
+        "noConsole": "off",
+        "noUnknownAtRules": {
+          "level": "error",
+          "options": { "ignore": ["tailwind"] }
+        }
+      }
     }
   },
   "javascript": {
