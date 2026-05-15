@@ -34,6 +34,7 @@ Rules:
 - Shared components are placed under `components/shared`.
 - SVG components are placed under `svgs`.
 - Screen data comes from hooks.
+- Prefer NativeWind `className` for component styling.
 
 ## Workflow
 

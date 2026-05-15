@@ -1,30 +1,33 @@
 # Styles Guide
 
-`src/styles` stores shared React Native style primitives.
+`src/styles` stores the NativeWind CSS entry and global CSS modules.
 
 ## Goals
 
-- Keep app-wide colors, spacing, and radius values centralized.
-- Keep screen-specific styles close to the screen component.
-- Avoid one-off global style constants scattered through UI files.
+- Keep NativeWind's CSS entry in one place.
+- Import additional global CSS files from `index.css`.
+- Prefer `className` for screen styling.
+- Keep screen styling in NativeWind classes.
 
 ## Directory Layout
 
 ```text
 src/styles/
-  tokens.ts               # Shared design tokens
-  index.ts                # Public style exports
+  index.css               # NativeWind CSS entry and global imports
+  <name>.css              # Optional global CSS module imported by index.css
 ```
 
 ## Rules
 
-- Put reusable design primitives in `tokens.ts`.
-- Keep `StyleSheet.create` blocks inside the component file that owns them.
-- Add new token groups only when at least three screens or components need them.
-- Do not create style constants for one-off values.
+- Import `index.css` once from `src/app/_layout.tsx`.
+- Keep Tailwind directives in `index.css`.
+- If another global CSS file is needed, create a new `.css` file and import it from `index.css`.
+- Use NativeWind `className` for screen and component styling.
+- Keep one-off navigator/runtime colors close to the navigator configuration.
 
 ## Checklist
 
-- Shared colors and spacing come from `@/styles/tokens`.
-- Screen-local styles stay near the screen.
-- Token names use camel case.
+- `metro.config.js` points NativeWind to `src/styles/index.css`.
+- New global CSS files are imported by `index.css`.
+- Screen UI uses `className` where NativeWind supports it.
+- No app-level style token module is introduced for one-off values.

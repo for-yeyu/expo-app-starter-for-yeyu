@@ -1,27 +1,30 @@
 ---
 name: styles-conventions
-description: Use when adding shared React Native design tokens or screen style conventions under src/styles.
+description: Use when adding NativeWind CSS entry, global CSS modules, or screen style conventions under src/styles.
 ---
 
 # Styles Conventions
 
 ## Scope
 
-Applies to `src/styles/**` and shared style token usage.
+Applies to `src/styles/**` and NativeWind CSS usage.
 
 ## Rules
 
-1. Shared colors, spacing, and radius values live in `src/styles/tokens.ts`.
-2. Screen-local `StyleSheet.create` blocks stay in the owning screen file.
-3. Add a token only when it is useful across at least three places.
-4. Token names use camel case.
-5. Do not create one-off style constants for values used once.
+1. NativeWind CSS entry lives in `src/styles/index.css`.
+2. Import `index.css` once from `src/app/_layout.tsx`.
+3. Keep Tailwind directives in `index.css`.
+4. New global CSS files must be separate `.css` files imported by `index.css`.
+5. Prefer NativeWind `className` for screen and component styling.
+6. Keep one-off navigator/runtime colors close to the navigator configuration.
+7. Do not introduce a style token module for one-off values.
 
 ## Workflow
 
-1. Reuse existing tokens when possible.
-2. Add new token groups only for repeated UI needs.
-3. Export new token groups through `src/styles/index.ts`.
+1. Use class names for new UI styles when possible.
+2. Put shared CSS in a dedicated `.css` file.
+3. Import shared CSS files from `src/styles/index.css`.
+4. Keep NativeWind theme extension in `tailwind.config.js`.
 
 ## References
 
